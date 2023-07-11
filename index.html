@@ -1,0 +1,107 @@
+
+
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autó márka táblázat</title>
+</head>
+<style>
+  .body2 {
+    border: 1px solid black;
+  }
+  .tabla tr,
+  th,
+  td {
+    border: 1px solid black;
+    width: 158px;
+  }
+  body {
+
+    background-color: teal;
+  }
+</style>
+<!-- ------------------------------------------------------------------------------------------ -->
+<body> 
+  <button onclick="feltoltes()">Feltöltés</button>
+  <button onclick="urites()">Összes elem törlése</button>
+     
+  <br><br>     
+    
+    <label for="adatok"> Autó típusa és évjárata  :   </label>
+    <input type="text" name="" id="tipus">    
+    <input type="number" name="" id="evjarat">
+
+    <label>Törlendő autó id-ja.</label>
+    <input type="text" name="" id="idTorles">
+    <button onclick="torles()">Kiválasztott elem törlése</button>      
+  
+
+  <table id="dataTable">  
+      <tr>
+        <td >ID</td>
+        <td >Típus</td>
+        <td >Évjárat</td>
+      </tr>       
+  </table>
+<!-- -------------------------------------------------------------------------------------- -->
+  <script>
+    newList = [];
+    var tablazat = [];   // táblázat adatai (dataList)
+    var sor = {}    // objektum .. 1-1 sor adatai  (itemList)
+    var id = 1;
+
+    function feltoltes() {
+      sor = {
+        id : id,
+        tipus: document.getElementById("tipus").value,
+        evjarat: document.getElementById("evjarat").value
+      }
+      tablazat.push(sor);
+      id++;
+      document.getElementById("dataTable").innerHTML += "<tr><td>" + sor.id + "</td><td>" 
+                                                     + document.getElementById("tipus").value + "</td><td>" 
+                                                      + document.getElementById("evjarat").value + "</td></tr>";
+
+      //kiir();
+    }
+    function urites() {
+      document.getElementById("dataTable").innerHTML = "";
+      //kiir();
+    }
+
+//------------------------------------------------------------
+
+    function torles() {
+      newList = [];
+      //console.log(tablazat);
+      var index = 0;
+      deleteById = document.getElementById("idTorles").value;
+
+      for (index = 0; index < tablazat.length; index++)
+        if (tablazat[index].id != deleteById) {
+          newList.push(tablazat[index]);
+        }
+      document.getElementById("dataTable").innerHTML = "";
+
+      tablazat = newList;
+
+      kiir();
+      console.log("A lista hossza: " + tablazat.length);
+      console.log("Az új lista hossza: " + newList.length);
+    }
+    function kiir() {
+      for (var index = 0; index < newList.length; index++) {
+        document.getElementById("dataTable").innerHTML += "<tr><td>" + tablazat[index].id + "</td><td>" 
+          + tablazat[index].tipus + "</td><td>" + tablazat[index].evjarat + "</td></tr>";
+      }
+    }
+  </script>   
+</body>
+</html>
+
+
+          
